@@ -1,1 +1,10 @@
-<p>world-information works!</p>
+<!-- In your main component, e.g., map.component.html -->
+<div *ngIf="selectedCountryData">
+    Country Name: {{ selectedCountryData?.countryName }} <br>
+    Country Income: {{ selectedCountryData?.income }} <br>
+    Capital City: {{ selectedCountryData?.capital }} <br>
+    Country GDP: {{ selectedCountryData?.gdp }} <br>
+    Country Life Expectancy: {{ selectedCountryData?.lifeExpectancy }} <br>
+    Region: {{ selectedCountryData?.region }}
+  </div>
+  
