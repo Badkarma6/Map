@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core'; // Added AfterViewInit
-import { GeoDataService } from '../services/geo-data.service';
+import { GeoDataService } from '../geo-data.service';
 
 @Component({
   selector: 'app-map-display',
@@ -11,7 +11,7 @@ export class MapDisplayComponent implements AfterViewInit { // Implement AfterVi
 
   ngAfterViewInit(): void {
     // Assuming your SVG is directly in the template. Adjust the selector if needed.
-    const svgElement: SVGElement = document.querySelector('svg');
+    const svgElement = document.querySelector('svg') as SVGElement;
     const pathElements: NodeListOf<SVGPathElement> = svgElement.querySelectorAll('path');
     pathElements.forEach((path: SVGPathElement) => {
       path.addEventListener('click', (event: MouseEvent) => this.handleClick(event));
@@ -33,3 +33,4 @@ export class MapDisplayComponent implements AfterViewInit { // Implement AfterVi
     console.log("Map clicked", event);
   }
 }
+ 
