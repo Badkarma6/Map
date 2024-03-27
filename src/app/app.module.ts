@@ -14,7 +14,7 @@ import { MapDisplayComponent } from './map-display/map-display.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
     HttpClientModule 
   ],
   providers: [],
