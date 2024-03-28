@@ -3,15 +3,16 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-world-information',
   templateUrl: './world-information.component.html',
-  styleUrls: ['./world-information.component.scss'] 
+  styleUrls: ['./world-information.component.scss']
 })
 export class WorldInformationComponent {
-  @Input() selectedCountryName?: string;
-  @Input() selectedCountryIncome?: number;
-  @Input() selectedCountryCapital?: string;
-  @Input() selectedCountryGdp?: number;
-  @Input() selectedCountryLifeExpectancy?: number;
-  @Input() selectedCountryRegion?: string;
+  @Input() countryData?: any; // Use this if passing the whole object
 
-  constructor() { }
+  // Individually passed properties (Optional if passing the whole object)
+  @Input() selectedCountryName?: string;
+  @Input() selectedCapitalCity?: string;
+  @Input() selectedPopulation?: string;
+  @Input() selectedCurrency?: string;
+  @Input() selectedContinent?: string;
+  @Input() selectedArea?: string;
 }

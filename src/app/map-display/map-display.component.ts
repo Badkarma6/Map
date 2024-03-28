@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core'; // Added AfterViewInit
+import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { GeoDataService } from '../geo-data.service';
 
 @Component({
@@ -6,31 +6,50 @@ import { GeoDataService } from '../geo-data.service';
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })
-export class MapDisplayComponent implements AfterViewInit { // Implement AfterViewInit
+export class MapDisplayComponent implements AfterViewInit {
+  @Output() countryInfoEmitted = new EventEmitter<any>();
+
+  // Define properties to hold selected country information
+  selectedCountryName: string = '';
+  selectedCapitalCity: string = '';
+  selectedPopulation: string = '';
+  selectedCurrency: string = '';
+  selectedContinent: string = '';
+  selectedArea: string = '';
+
   constructor(private geoDataService: GeoDataService) { }
 
   ngAfterViewInit(): void {
-    // Assuming your SVG is directly in the template. Adjust the selector if needed.
     const svgElement = document.querySelector('svg') as SVGElement;
-    const pathElements: NodeListOf<SVGPathElement> = svgElement.querySelectorAll('path');
-    pathElements.forEach((path: SVGPathElement) => {
+    svgElement.querySelectorAll('path').forEach(path => {
       path.addEventListener('click', (event: MouseEvent) => this.handleClick(event));
     });
   }
 
-  handleClick(event: MouseEvent) {
+  handleClick(event: MouseEvent): void {
     const path = event.target as SVGPathElement;
-    const countryCode = path.id; // Assuming the SVG path id is the country code
+    const countryCode = path.id;
 
-    // Use the GeoDataService to fetch country information
     this.geoDataService.getCountryInformation(countryCode).subscribe((data: any) => {
-      console.log(data); // For now, just log the data to see if it works
+      if (data.geonames && data.geonames.length > 0) {
+        const countryInfo = data.geonames[0];
+        // Set the properties with the retrieved data
+        this.selectedCountryName = countryInfo.countryName;
+        this.selectedCapitalCity = countryInfo.capital;
+        this.selectedPopulation = countryInfo.population;
+        this.selectedCurrency = countryInfo.currencyCode;
+        this.selectedContinent = countryInfo.continentName;
+        this.selectedArea = countryInfo.areaInSqKm;
+        // Emit the updated country info
+        this.countryInfoEmitted.emit({
+          countryName: this.selectedCountryName,
+          capitalCity: this.selectedCapitalCity,
+          population: this.selectedPopulation,
+          currency: this.selectedCurrency,
+          continent: this.selectedContinent,
+          area: this.selectedArea
+        });
+      }
     });
   }
-
-  // Your existing onMapClick method, if still needed
-  onMapClick(event: MouseEvent): void {
-    console.log("Map clicked", event);
-  }
 }
- 
