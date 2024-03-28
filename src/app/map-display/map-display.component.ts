@@ -32,11 +32,13 @@ export class MapDisplayComponent implements AfterViewInit {
     const path = event.target as SVGPathElement;
     const countryCode = path.id;
 
-    // Change the country color on hover
-    path.style.fill = 'rgb(245, 8, 8)'; // Highlight color
+    // country color when hovering
+    path.style.fill = 'rgb(245, 8, 8)'; 
 
     // Fetch and emit country information on hover
     this.geoDataService.getCountryInformation(countryCode).subscribe((data: any) => {
+      console.log(data); // This will log the data received from the service
+    
       if (data.geonames && data.geonames.length > 0) {
         const countryInfo = data.geonames[0];
         // Set the properties with the retrieved data
@@ -46,7 +48,7 @@ export class MapDisplayComponent implements AfterViewInit {
         this.selectedCurrency = countryInfo.currencyCode;
         this.selectedContinent = countryInfo.continentName;
         this.selectedArea = countryInfo.areaInSqKm;
-
+    
         // Emit the updated country info
         this.countryInfoEmitted.emit({
           countryName: this.selectedCountryName,
@@ -56,6 +58,9 @@ export class MapDisplayComponent implements AfterViewInit {
           continent: this.selectedContinent,
           area: this.selectedArea
         });
+      } else {
+        // Optionally, log a message if no data was found
+        console.log('No data found for country code:', countryCode);
       }
     });
   }
