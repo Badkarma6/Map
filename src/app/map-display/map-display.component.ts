@@ -22,14 +22,20 @@ export class MapDisplayComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const svgElement = document.querySelector('svg') as SVGElement;
     svgElement.querySelectorAll('path').forEach(path => {
-      path.addEventListener('click', (event: MouseEvent) => this.handleClick(event));
+      // Use mouseenter for hover functionality
+      path.addEventListener('mouseenter', (event: MouseEvent) => this.handleMouseEnter(event));
+      path.addEventListener('mouseleave', (event: MouseEvent) => this.handleMouseLeave(event));
     });
   }
 
-  handleClick(event: MouseEvent): void {
+  handleMouseEnter(event: MouseEvent): void {
     const path = event.target as SVGPathElement;
     const countryCode = path.id;
 
+    // Change the country color on hover
+    path.style.fill = 'rgb(245, 8, 8)'; // Highlight color
+
+    // Fetch and emit country information on hover
     this.geoDataService.getCountryInformation(countryCode).subscribe((data: any) => {
       if (data.geonames && data.geonames.length > 0) {
         const countryInfo = data.geonames[0];
@@ -40,6 +46,7 @@ export class MapDisplayComponent implements AfterViewInit {
         this.selectedCurrency = countryInfo.currencyCode;
         this.selectedContinent = countryInfo.continentName;
         this.selectedArea = countryInfo.areaInSqKm;
+
         // Emit the updated country info
         this.countryInfoEmitted.emit({
           countryName: this.selectedCountryName,
@@ -51,5 +58,11 @@ export class MapDisplayComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  handleMouseLeave(event: MouseEvent): void {
+    const path = event.target as SVGPathElement;
+    // Reset the fill color upon mouse leave
+    path.style.fill = ''; // Consider setting this to the original or default fill color
   }
 }
