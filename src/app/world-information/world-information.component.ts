@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './world-information.component.html',
   styleUrls: ['./world-information.component.scss']
 })
-export class WorldInformationComponent {
+export class WorldInformationComponent  {
   @Input() countryData?: any; // Use this if passing the whole object
 
   // Individually passed properties (Optional if passing the whole object)

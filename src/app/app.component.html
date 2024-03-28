@@ -1,12 +1,11 @@
 <div class="app-container">
     <div class="map-container">
-        <!-- Map Display Component -->
+        <!-- Map-Display Component -->
         <app-map-display (countryInfoEmitted)="handleCountryInfo($event)"></app-map-display>
     </div>
     
     <div class="country-info-container">
-        <!-- Country Information Display Component -->
-        <!-- Using the correct selector for WorldInformationComponent -->
+        <!-- world-Information Component -->
         <app-world-information [countryData]="selectedCountryData"></app-world-information>
     </div>
 </div>

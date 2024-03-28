@@ -1,23 +1,8 @@
-<!-- If passing the whole country data object -->
 <div *ngIf="countryData">
-  <!-- Existing fields -->
   <p>Country Name: {{ countryData.countryName }}</p>
   <p>Capital: {{ countryData.capital }}</p>
   <p>Population: {{ countryData.population }}</p>
   <p>Currency Code: {{ countryData.currencyCode }}</p>
-  <!-- New fields -->
   <p>Continent: {{ countryData.continent }}</p>
-  <p>Area (sq km): {{ countryData.areaInSqKm | number }}</p> <!-- Using the 'number' pipe for formatting -->
-</div>
-
-<!-- Or if passing properties individually -->
-<div *ngIf="selectedCountryName">
-  <!-- Existing fields -->
-  <p>Country Name: {{ selectedCountryName }}</p>
-  <p>Capital: {{ selectedCapitalCity }}</p>
-  <p>Population: {{ selectedPopulation }}</p>
-  <p>Currency Code: {{ selectedCurrency }}</p>
-  <!-- New fields -->
-  <p>Continent: {{ selectedContinent }}</p>
-  <p>Area (sq km): {{ selectedArea | number }}</p> <!-- Using the 'number' pipe for formatting -->
+  <p>Area (sq km): {{ countryData.areaInSqKm | number }}</p> 
 </div>
