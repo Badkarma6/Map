@@ -6,9 +6,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./world-information.component.scss']
 })
 export class WorldInformationComponent  {
-  @Input() countryData?: any; // Use this if passing the whole object
+  @Input() countryData?: any; 
 
-  // Individually passed properties (Optional if passing the whole object)
+  // Individually  properties 
   @Input() selectedCountryName?: string;
   @Input() selectedCapitalCity?: string;
   @Input() selectedPopulation?: string;
